@@ -129,8 +129,10 @@ public class EditController {
     @GetMapping("/admin/edit/cinema/delete/{cinemaID}")
     public String deleteCinemaById(@PathVariable("cinemaID") Long cinemaID) {
         Cinema cinema = cinemaService.getById(cinemaID);
+        for (Film film : cinema.getFilm()){
+            film.getCinema().remove(cinema);
+        }
         cinemaService.delete(cinema);
-
         /*Path path = Paths.get(uploadPath + "\\" + cinema.getPhotoName());
 
         try {
